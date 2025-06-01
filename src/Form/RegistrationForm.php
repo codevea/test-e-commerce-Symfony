@@ -50,8 +50,6 @@ class RegistrationForm extends AbstractType
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'first_options'  => ['label' => 'Mot de passe', 'hash_property_path' => 'password'],
                 'second_options' => ['label' => 'Répétez le mot de passe.'],
                 'mapped' => false,
@@ -63,9 +61,8 @@ class RegistrationForm extends AbstractType
                         'message' => 'Entrer votre mot de passe',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 12,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],

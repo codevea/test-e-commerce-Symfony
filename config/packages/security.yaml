@@ -22,6 +22,8 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
+                # https://symfony.com/doc/current/security/form_login.html
+                default_target_path: app_account
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -41,7 +43,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN, requires_channel: https }
-        - { path: ^/profile, roles: ROLE_USER, requires_channel: https }
+        - { path: ^/profil, roles: ROLE_USER, requires_channel: https }
         - { path: '^/', roles: PUBLIC_ACCESS, requires_channel: https }
 when@test:
     security:

@@ -21,12 +21,21 @@ git branch -M main
 git push -u origin main
 </code>
 
-### Info
+### Info - rappel
 
-
-- webpack-encore / sass / bootstrap
 - remove asset-mapper
-https://symfony.com/doc/current/frontend/encore/bootstrap.html
+- webpack-encore / sass / bootstrap
+
+:pushpin: https://symfony.com/doc/current/frontend/encore/bootstrap.html
+
+<hr>
  - Security + User
-https://symfony.com/doc/current/security.html
+
+:pushpin: https://symfony.com/doc/current/security.html
 - UserChecker => App\Security\UserChecker
+- Form modify password->addEventListener 
+
+:pushpin: https://symfony.com/doc/current/form/events.html
+:pushpin: https://symfony.com/doc/current/security/passwords.html#configuring-a-password-hasher
+
+<hr>

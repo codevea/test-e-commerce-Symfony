@@ -37,7 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\PasswordStrength()]
+    #[Assert\PasswordStrength]
     private ?string $password = null;
 
     #[ORM\Column(type: Types::STRING, length: 255)]

@@ -30,7 +30,11 @@
 				<div>
 					{% if app.user  %}
 						<button class="btn btn-primary mx-1">
-							<a class="nav-link" href="#">{{ ux_icon('ri:user-fill', { width:"24px", height:"24px" }) }}</a>
+							<a class="nav-link" href="{{path('app_logout')}}">{{ ux_icon('circum:logout', { width:"24px", height:"24px" }) }}</a>
+						</button>
+						<button class="btn btn-primary mx-1">
+							<a class="nav-link" href="{{path('app_account')}}">{{ ux_icon('ri:user-fill', { width:"24px", height:"24px" }) }}
+								{{app.user.firtname}}</a>
 						</button>
 					{% else %}
 						<button class="btn btn-primary mx-1">
@@ -86,20 +90,20 @@
 				</button>
 			</div>
 
+			<div class="container my-5"> {% block body %}{% endblock %}
+				</div>
 
-			{% block body %}{% endblock %}
-
-			<!-- FOOTER -->
-			<footer class="container">
-				<p>
-					&copy; 2025 Nathalie Vrecq - Codevea - La Boutique Test avec Symfony 7.3.x - Bootstrap v5.3
-					<br>
-					<a href="#">CGV</a>
-					&middot;
-					<a href="#">CGU</a>
-				</p>
-			</footer>
+				<!-- FOOTER -->
+				<footer class="container">
+					<p>
+						&copy; 2025 Nathalie Vrecq - Codevea - La Boutique Test avec Symfony 7.3.x - Bootstrap v5.3 - images unsplash.com
+						<br>
+						<a href="#">CGV</a>
+						&middot;
+						<a href="#">CGU</a>
+					</p>
+				</footer>
 		</main>
 	</body>
 
-</html>
+	</html>
