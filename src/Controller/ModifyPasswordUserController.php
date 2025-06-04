@@ -21,8 +21,11 @@ final class ModifyPasswordUserController extends AbstractController
         $form = $this->createForm(ModifyPasswordUserForm::class, $user, ['userPasswordHasherInterface' => $userPasswordHasherInterface]);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() and $form->isValid() ){
+        if ($form->isSubmitted() and $form->isValid()) {
             $entityManagerInterface->flush();
+
+            $this->addFlash('success', 'Votre mot de passe à bien été modifier');
+            return $this->redirectToRoute('app_account');
         }
 
         return $this->render('account/modify_password_user/index.html.twig', [

@@ -1,5 +1,9 @@
 # Symfony 7.3.x E-commerce
 
+- Bootstrap v5.3 
+
+- Images unsplash
+
 - https://gitmoji.dev/ 
 
 
@@ -29,13 +33,16 @@ git push -u origin main
 :pushpin: https://symfony.com/doc/current/frontend/encore/bootstrap.html
 
 <hr>
+
  - Security + User
 
 :pushpin: https://symfony.com/doc/current/security.html
+
 - UserChecker => App\Security\UserChecker
 - Form modify password->addEventListener 
 
 :pushpin: https://symfony.com/doc/current/form/events.html
+
 :pushpin: https://symfony.com/doc/current/security/passwords.html#configuring-a-password-hasher
 
 <hr>

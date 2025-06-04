@@ -90,20 +90,30 @@
 				</button>
 			</div>
 
-			<div class="container my-5"> {% block body %}{% endblock %}
+			<div class="container-fluid my-5">
+				<div class="container">
+					{% for label, messages in app.flashes %}
+						{% for message in messages %}
+							<div class="alert alert-{{ label }}" role="alert">
+								{{ message }}
+							</div>
+						{% endfor %}
+					{% endfor %}
 				</div>
+				{% block body %}{% endblock %}
+			</div>
 
-				<!-- FOOTER -->
-				<footer class="container">
-					<p>
-						&copy; 2025 Nathalie Vrecq - Codevea - La Boutique Test avec Symfony 7.3.x - Bootstrap v5.3 - images unsplash.com
-						<br>
-						<a href="#">CGV</a>
-						&middot;
-						<a href="#">CGU</a>
-					</p>
-				</footer>
+			<!-- FOOTER -->
+			<footer class="container">
+				<p>
+					&copy; 2025 Nathalie Vrecq - Codevea - La Boutique Test avec Symfony 7.3.x - Bootstrap v5.3 - images unsplash.com
+					<br>
+					<a href="#">CGV</a>
+					&middot;
+					<a href="#">CGU</a>
+				</p>
+			</footer>
 		</main>
 	</body>
 
-	</html>
+</html>
