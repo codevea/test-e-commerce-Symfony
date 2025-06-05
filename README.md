@@ -46,3 +46,5 @@ git push -u origin main
 :pushpin: https://symfony.com/doc/current/security/passwords.html#configuring-a-password-hasher
 
 <hr>
+
+- install easyadmin-bundle
