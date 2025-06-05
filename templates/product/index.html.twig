@@ -15,8 +15,7 @@
 				>
 				{{product.name}}</span>
 			<h2 class="mb-3">{{product.name}}</h2>
-			<span class="d-block my-3">{{ product.price}}</span>
-			{{ product.description|raw}}
+			<span class="d-block my-3">{{ product.priceWT|format_currency('EUR') }}
 			<button class="btn btn-primary mt-3 w-100">Ajouter au panier</a>
 		</div>
 	</div>

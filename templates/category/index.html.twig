@@ -13,7 +13,7 @@
 			<div class="col-md-3">
 				<h3>produit :{{product.name}}</h3>
 				<a href="{{ path('app_product', {'slug':product.slug}) }}"><img src="uploads/{{product.illustration}}" class="img-fluid rounded-4" alt="{{product.name}}"></a>
-				Prix :{{product.getPriceWT|currency_name('EUR') }}
+				{{ product.priceWT|format_currency('EUR') }}
 			</div>
 		{% endfor %}
 	</div>

@@ -26,6 +26,12 @@
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Acceuil</a>
 					</li>
+					{% for categorie in allCategory %}
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="#">{{categorie.name}}</a>
+						</li>
+					{% endfor %}
+
 				</ul>
 				<div>
 					{% if app.user  %}

@@ -35,9 +35,9 @@ class Product
     #[ORM\Column]
     private ?float $tva = null;
 
-    public function getPriceWT()
+    public function getPriceWT(): float
     {
-        return $this->price * (1 + $this->tva/100);
+        return round(($this->price / 100) * (1 + $this->tva / 100), 2);
     }
 
     public function getId(): ?int

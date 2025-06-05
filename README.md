@@ -48,3 +48,4 @@ git push -u origin main
 <hr>
 
 - install easyadmin-bundle
+- Global Twig extensions allCategory Twig/addExtension
