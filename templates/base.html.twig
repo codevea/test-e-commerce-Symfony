@@ -28,10 +28,9 @@
 					</li>
 					{% for categorie in allCategory %}
 						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="#">{{categorie.name}}</a>
+							<a class="nav-link active" aria-current="page" href="{{path('app_category', {'slug':categorie.slug})}}">{{categorie.name}}</a>
 						</li>
 					{% endfor %}
-
 				</ul>
 				<div>
 					{% if app.user  %}
@@ -51,6 +50,9 @@
 							<a class="nav-link" href="{{path('app_login')}}">{{ ux_icon('hugeicons:login-method', { width:"24px", height:"24px" }) }}</a>
 						</button>
 					{% endif %}
+											<button class="btn btn-primary mx-1">
+							<a class="nav-link" href="{{path('app_cart')}}">{{ ux_icon('mynaui:cart-solid', { width:"24px", height:"24px" }) }}</a>
+						</button>
 				</div>
 			</nav>
 		</header>

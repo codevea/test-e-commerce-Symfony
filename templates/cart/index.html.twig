@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Mon panier
+{% endblock %}
+
+{% block body %}
+	<h2>Mon panier
+	</h2>
+	<div class="my-3">
+		<h3 class="mb-3">Liste de mes produits</h3>
+		{{ dump(cart) }}
+
+		{% for cart in cart %}
+			<div class="row my-1">
+				<div class="col-md-1"><img src="uploads{{asset(cart.object.illustration)}}" class="img-fluid img-thumbnail"></div>
+				<div class="col-md-5"><a href="{{path('app_product', {'slug': cart.object.slug})}}">{{cart.object.name}}</a></div>
+				<div class="col-md-3">{{cart.quantity}}</div>
+				<div class="col-md-3">{{  (cart.object.priceWT * cart.quantity)|format_currency('EUR')  }}</div>
+			</div>
+		{% endfor %}
+
+	</div>
+{% endblock %}
