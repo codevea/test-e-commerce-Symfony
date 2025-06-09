@@ -48,6 +48,5 @@ git push -u origin main
 <hr>
 
 - install easyadmin-bundle
-- Global Twig extensions allCategory Twig/addExtension
+- Global Twig extensions Twig/addExtension
 - add to cart 
-- add function decrement() 

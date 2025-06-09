@@ -20,8 +20,8 @@ class Cart
   public function __construct(private RequestStack $requestStack) {}
 
   /**
-   * Ajoute un produit au panier
-   * add items
+   * Fonction permettant d'ajouter un produit au panier.
+   * "Function allowing to add a product to the cart
    *
    * @param [type] $product
    * @return void
@@ -83,31 +83,31 @@ class Cart
    * Calcule le prix total des articles (TTC).
    * Calculate the total price of items tax (TTC).
    *
-   * @return  allPriceTtc()
+   * @return  $totalPrice;
    */
   public function allPriceTtc()
   {
     // Appel de la fonction getCart()
     // Call of the function getCart()
     $cart = $this->getCart();
-    $totalPrice = 0;
+    $totalPriceTtc = 0;
 
     if (!isset($cart)) {
-      return $totalPrice;
+      return $totalPriceTtc;
     }
 
     foreach ($cart as $product) {
-      $totalPrice = $totalPrice + ($product['object']->getPriceWT() * $product['quantity']);
+      $totalPriceTtc = $totalPriceTtc + ($product['object']->getPriceWT() * $product['quantity']);
     };
 
-    return $totalPrice;
+    return $totalPriceTtc;
   }
 
   /**
    * Calcule le prix total des articles hors taxes (HT).
    * Calculate the total price of items before tax (HT).
    *
-   * @return allPriceHt()
+   * @return $totalPriceHt;
    */
   public function allPriceHt()
   {
