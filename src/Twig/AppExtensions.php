@@ -21,7 +21,7 @@ class AppExtensions extends AbstractExtension implements GlobalsInterface
       // Récupère toutes les catégories
       'allCategory' => $this->categoryRepository->findAll(),
       // Récupère la quantitées total des produits dans le panier
-      'fullQuantityProduct' => $this->cart->fullQuantityProduct(),
+      'allCountQuantityProduct' => $this->cart->allCountQuantityProduct(),
     ];
   }
 }

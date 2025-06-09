@@ -35,6 +35,9 @@ class Product
     #[ORM\Column]
     private ?float $tva = null;
 
+    #[ORM\Column]
+    private ?int $stock = null;
+
     public function getPriceWT(): float
     {
         return round(($this->price / 100) * (1 + $this->tva / 100), 2);
@@ -125,6 +128,18 @@ class Product
     public function setTva(float $tva): static
     {
         $this->tva = $tva;
+
+        return $this;
+    }
+
+    public function getStock(): ?int
+    {
+        return $this->stock;
+    }
+
+    public function setStock(?int $stock): static
+    {
+        $this->stock = $stock;
 
         return $this;
     }

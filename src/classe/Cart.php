@@ -6,30 +6,57 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class Cart
 {
-  public function __construct(private RequestStack $requestStack) {}
-
-  public function add($product)
+  /**
+   * panier en cours
+   *
+   * @return getCart()
+   */
+  public function getCart()
   {
     // Récupère le panier en cours
-    $cart = $this->requestStack->getSession()->get('cart');
+    return $this->requestStack->getSession()->get('cart');
+  }
+
+  public function __construct(private RequestStack $requestStack) {}
+
+  /**
+   * Ajoute un produit au panier
+   * add items
+   *
+   * @param [type] $product
+   * @return void
+   */
+  public function add($product)
+  {
+    // Appel de la fonction getCart()
+    // Call of the function getCart()
+    $cart = $this->getCart();
 
     if (isset($cart[$product->getId()])) {
-      $cart[$product->getId()]['quantity'] += 1;
+        $cart[$product->getId()]['quantity'] += 1;
     } else {
       $cart[$product->getId()] = [
         'object' => $product,
         'quantity' => 1,
       ];
     }
-
+ 
     // Panier actuel.
     $this->requestStack->getSession()->set('cart', $cart);
   }
 
+  /**
+   * Décremente le nombre de produit dans le panier
+   * Decrease items
+   *
+   * @param [type] $id
+   * @return void
+   */
   public function decrease($id)
   {
-    // Récupère le panier en cours
-    $cart = $this->requestStack->getSession()->get('cart');
+    // Appel de la fonction getCart();
+    // Call of the function getCart()
+    $cart = $this->getCart();
 
     if ($cart[$id]['quantity'] > 1) {
       $cart[$id]['quantity'] = $cart[$id]['quantity'] - 1;
@@ -39,13 +66,6 @@ class Cart
 
     // Panier actuel.
     $this->requestStack->getSession()->set('cart', $cart);
-  }
-
-  public function getCart()
-  {
-    // Récupère le panier en cours
-    return $this->requestStack->getSession()->get('cart');
-       
   }
 
   /**
@@ -59,15 +79,25 @@ class Cart
     return $this->requestStack->getSession()->remove('cart');
   }
 
-
-  public function getFullPriceWT()
+  /**
+   * Calcule le prix total des articles (TTC).
+   * Calculate the total price of items tax (TTC).
+   *
+   * @return  allPriceTtc()
+   */
+  public function allPriceTtc()
   {
-    // Récupère le panier en cours
-    $cart = $this->requestStack->getSession()->get('cart');
+    // Appel de la fonction getCart()
+    // Call of the function getCart()
+    $cart = $this->getCart();
     $totalPrice = 0;
 
+    if (!isset($cart)) {
+      return $totalPrice;
+    }
+
     foreach ($cart as $product) {
-      $totalPrice = $totalPrice + (($product['object']->getPriceWT() * $product['quantity']));
+      $totalPrice = $totalPrice + ($product['object']->getPriceWT() * $product['quantity']);
     };
 
     return $totalPrice;
@@ -77,17 +107,22 @@ class Cart
    * Calcule le prix total des articles hors taxes (HT).
    * Calculate the total price of items before tax (HT).
    *
-   * @return $totalPriceHt;
+   * @return allPriceHt()
    */
-  public function getFullPriceHT()
+  public function allPriceHt()
   {
-    // Récupère le panier en cours
-    $cart = $this->requestStack->getSession()->get('cart');
+    // Appel à la fonction getCart()
+    // Call of the function getCart().
+    $cart = $this->getCart();
     $totalPriceHt = 0;
+
+    if (!isset($cart)) {
+      return $totalPriceHt;
+    }
 
     foreach ($cart as $product) {
       $totalPriceHt = $totalPriceHt + (($product['object']->getPrice() * $product['quantity']) / 100);
-    };
+    }
 
     return $totalPriceHt;
   }
@@ -98,16 +133,15 @@ class Cart
    *
    * @return $quantity;
    */
-  public function fullQuantityProduct()
+  public function allCountQuantityProduct()
   {
-    // Récupère le panier en cours
-    $cart = $this->requestStack->getSession()->get('cart');
+    // Récupère la function getCart()
+    $cart = $this->getCart();
     $quantity = 0;
 
-    if($quantity == 0){
-      return  $quantity;
+    if (!isset($cart)) {
+      return $quantity;
     }
-
     // Boucle sur le nombre de produit du panier
     foreach ($cart as $product) {
       $quantity = $quantity + $product['quantity'];

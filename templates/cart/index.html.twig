@@ -9,8 +9,6 @@
 	</h2>
 	<div class="my-3">
 		<h3 class="mb-3">Liste de mes produits</h3>
-		{{ dump(cart
-    ) }}
 
 		{% for product in cart %}
 			<div class="row my-1">
@@ -32,29 +30,35 @@
 				<div class="col-md-3">{{  (product.object.priceWT * product.quantity)|format_currency('EUR')  }}</div>
 			</div>
 		{% endfor %}
-	
+
 		<hr>
+
 
 		<div>
 			<p>
 				Total des produits de votre panier :
-				{{ fullQuantityProduct }}
-			</p>			<p>
-				Total du panier HT : {{getFullPriceHT|format_currency('EUR') }}
+				{{ allCountQuantityProduct }}
 			</p>
-				<p>
-				TVA : {{(getFullPriceWT - getFullPriceHT)|format_currency('EUR')}}
+			<p>
+				Total du panier HT :
+				{{allPriceHt|format_currency('EUR') }}
 			</p>
-
-	<p>
-				Total du panier TTC : {{ getFullPriceWT|format_currency('EUR') }}
-			</p>			
-	
+			<p>
+				TVA :
+				{{(allPriceTtc - allPriceHt)|format_currency('EUR')}}
+			</p>
+			<p>
+				Total du panier TTC :
+				{{ allPriceTtc|format_currency('EUR') }}
+			</p>
 		</div>
 
 		<hr>
-	<button class="btn btn-primary">Valider</button>
+		<button class="btn btn-primary">Valider</button>
 
-		<span class="d-block"><a href="{{ path('app_cart_remove')}}">Supprimer le panier</a></span>
+		<span class="d-block">
+			<a href="{{ path('app_cart_remove')}}">Supprimer le panier</a>
+		</span>
 	</div>
+
 {% endblock %}
