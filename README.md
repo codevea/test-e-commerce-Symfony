@@ -50,3 +50,4 @@ git push -u origin main
 - install easyadmin-bundle
 - Global Twig extensions Twig/addExtension
 - add to cart 
+- Adding addresses to the user account plus refactoring.

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Mon compte
+{% endblock %}
+
+{% block body %}
+	<h2>Mon compte</h2>
+	<p>
+		<a href="{{path('app_account_modify_password_user')}}">Modifier son mot de passe</a>
+	</p>
+
+	<p>
+		<a href="{{path('app_account_addresses_list')}}">Mes adresses de livraison</a>
+	</p>
+
+	<p>
+		<a href="{{path('app_account_address_form')}}">Ajouter un adresse</a>
+	</p>
+{% endblock %}

@@ -12,14 +12,9 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CartController extends AbstractController
 {
     #[Route('/mon-panier', name: 'app_cart')]
-    public function index(Cart $cart): Response
+    public function cart(Cart $cart): Response
     {
-        // if (!empty($cart)) {
-        //     $this->addFlash('info', 'Votre panier est vide');
-        //     return  $this->redirectToRoute('app_home');
-        // }
-
-        return $this->render('cart/index.html.twig', [
+        return $this->render('cart/cart.html.twig', [
             'cart' => $cart->getCart(),
             'allPriceTtc' => $cart->allPriceTtc(),
             'allPriceHt' => $cart->allPriceHt()
@@ -30,7 +25,7 @@ final class CartController extends AbstractController
     public function add($id, Cart $cart, ProductRepository $productRepository, Request $request): Response
     {
         $product = $productRepository->findOneById($id);
-        $cart->add($product);
+        $cart->addProductCart($product);
 
         $this->addFlash('success', 'Le produit à été ajouter à votre panier');
         // Récupère l'URL de la dernière page visitée.
@@ -40,7 +35,7 @@ final class CartController extends AbstractController
     #[Route('cart/remove', name: 'app_cart_remove')]
     public function remove(Cart $cart): Response
     {
-        $cart->remove();
+        $cart->removeCart();
         $this->addFlash('success', 'Le pranier à bien été supprimer');
         return $this->redirectToRoute('app_home');
     }
@@ -48,8 +43,7 @@ final class CartController extends AbstractController
     #[Route('cart/decrease-{id}', name: 'app_cart_decrease')]
     public function decrease($id, Cart $cart)
     {
-
-        $cart->decrease($id);
+        $cart->decreaseNumberProductCart($id);
         $this->addFlash('success', 'Le produit à bien été supprimer à votre panier');
         return $this->redirectToRoute('app_cart');
     }

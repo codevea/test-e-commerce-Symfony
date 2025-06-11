@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CategoryController extends AbstractController
 {
     #[Route('/categorie-{slug}', name: 'app_category')]
-    public function index(CategoryRepository $categoryRepository, $slug): Response
+    public function category(CategoryRepository $categoryRepository, $slug): Response
     {
         $category = $categoryRepository->findOneBySlug($slug);
 
@@ -18,7 +18,7 @@ final class CategoryController extends AbstractController
              return $this->redirectToRoute('app_home');
         };
 
-        return $this->render('category/index.html.twig', [
+        return $this->render('category/category.html.twig', [
             'category' => $category
         ]);
     }

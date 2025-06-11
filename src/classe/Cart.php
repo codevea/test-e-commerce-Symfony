@@ -26,7 +26,7 @@ class Cart
    * @param [type] $product
    * @return void
    */
-  public function add($product)
+  public function addProductCart($product)
   {
     // Appel de la fonction getCart()
     // Call of the function getCart()
@@ -47,12 +47,12 @@ class Cart
 
   /**
    * Décremente le nombre de produit dans le panier
-   * Decrease items
+   * "Decreases the number of products in the cart.
    *
    * @param [type] $id
    * @return void
    */
-  public function decrease($id)
+  public function decreaseNumberProductCart($id)
   {
     // Appel de la fonction getCart();
     // Call of the function getCart()
@@ -74,7 +74,7 @@ class Cart
    *
    * @return void
    */
-  public function remove()
+  public function removeCart()
   {
     return $this->requestStack->getSession()->remove('cart');
   }
