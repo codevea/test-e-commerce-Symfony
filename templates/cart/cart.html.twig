@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<h2>Mon panier
-	</h2>
+	<h2>Mon panier</h2>
 	<div class="my-3">
 		<h3 class="mb-3">Liste de mes produits</h3>
 
@@ -27,7 +26,9 @@
 						<a href="{{path('app_cart_add', {id:product.object.id})}}" type="button" class="btn btn-secondary">+</a>
 					</div>
 				</div>
-				<div class="col-md-3">{{  (product.object.priceWT * product.quantity)|format_currency('EUR')  }}</div>
+				<div class="col-md-3">
+				{{  (product.object.priceWT * product.quantity)|format_currency('EUR')  }}
+				</div>
 			</div>
 		{% endfor %}
 
@@ -54,7 +55,8 @@
 		</div>
 
 		<hr>
-		<button class="btn btn-primary">Valider</button>
+		
+		<a href="{{path('app_order')}}" class="btn btn-primary">Commander</a>
 
 		<span class="d-block">
 			<a href="{{ path('app_cart_remove')}}">Supprimer le panier</a>

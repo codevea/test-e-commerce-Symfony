@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Entity\Category;
 use App\Controller\Admin\UserCrudController;
+use App\Entity\Carrier;
 use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Response;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -44,14 +45,15 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('E Commerce Symfony');
+            ->setTitle('E-Commerce Symfony');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
-        yield MenuItem::linkToCrud('Catégories', 'fas fa-list', Category::class);
-        yield MenuItem::linkToCrud('Produits', 'fas fa-list', Product::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa-solid fa-users-gear', User::class);
+        yield MenuItem::linkToCrud('Catégories', 'fa-solid fa-list', Category::class);
+        yield MenuItem::linkToCrud('Produits', 'fa-solid fa-tag', Product::class);
+        yield MenuItem::linkToCrud('Transporteurs', 'fa-solid fa-truck-moving', Carrier::class);
     }
 }

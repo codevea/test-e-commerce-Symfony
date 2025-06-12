@@ -47,7 +47,12 @@ git push -u origin main
 
 <hr>
 
-- install easyadmin-bundle
-- Global Twig extensions Twig/addExtension
-- add to cart 
+- install easyadmin-bundle.
+- Global Twig extensions Twig/addExtension.
+- add to cart.
 - Adding addresses to the user account plus refactoring.
+- Addition of carrier class, order, and order detail.
+- Initial setup of the purchase funnel
+...
+
+

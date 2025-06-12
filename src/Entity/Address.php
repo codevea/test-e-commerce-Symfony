@@ -4,9 +4,10 @@ namespace App\Entity;
 
 use App\Repository\AddressRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
-class Address
+class Address implements Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -37,6 +38,11 @@ class Address
 
     #[ORM\Column(length: 255)]
     private ?string $phone = null;
+
+    public function __toString()
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname() . ' ' . $this->getAddress() . ' ' . $this->getPostal() . ' ' . $this->getCity(). ' ' . $this->getPhone();
+    }
 
     public function getId(): ?int
     {

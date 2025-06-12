@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Commande
+{% endblock %}
+
+{% block body %}
+	<h2>Récapitulatif de ma commande</h2>
+	<div class="row my-5">
+		<div class="col-md-8">
+			<h3  class="my-3">Mes articles</h3>
+			{% for product in cart %}
+				<div class="row">
+					<div class="col-md-2">
+						<img src="uploads{{asset(product.object.illustration)}}" class="img-fluid img-thumbnail" alt="{{product.object.name}}">
+					</div>
+					<div class="col-md-7">
+						<a href="{{path('app_product', {'slug': product.object.slug})}}">{{product.object.name}}</a><br>
+            <small>Quantité commandée: x{{product.quantity}}</small> 
+					</div>
+					<div class="col-md-3">
+						{{  (product.object.priceWT * product.quantity)|format_currency('EUR')  }}
+					</div>
+				</div>
+			{% endfor %}
+			<h3 class="my-3">Adresse de livraison</h3>
+			{{choices.address.firstname}}
+			{{choices.address.lastname}}<br>
+			{{choices.address.address}}<br>
+			{{choices.address.postal}} {{choices.address.city}}
+			<h3 class="my-3">Transporteur</h3>
+			{{choices.carrier.name}}
+			{{choices.carrier.description}}<br>
+			{{(choices.carrier.price/100) | number_format(2, ',', '')  }} €
+		</div>
+
+		<div class="col-md-3">
+			Montant Total HT : {{allPriceHt|format_currency('EUR') }}<br>
+			Montant TVA : {{(allPriceTtc - allPriceHt)|format_currency('EUR')}}<br>
+      Frais de transport : {{(choices.carrier.price/100) | number_format(2, ',', '')  }} €<br><br>
+
+			Montant total TTC  : {{(allPriceTtc + (choices.carrier.price/100)) | number_format(2, ',', '') }} €<br>
+      <a href="#" class="btn btn-primary w-100 my-3">Payer</a>
+		</div>
+	</div>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Account;
 
+use App\classe\Cart;
 use App\Entity\Address;
 use App\Form\AddressForm;
 use App\Repository\AddressRepository;
@@ -24,7 +25,7 @@ final class AddressController extends AbstractController
     {
         // Récupérer l'adresse enregistrée.
         $address = $addressRepository->findOneById($id);
-        
+
         // Verifie que l'adresse existe et que ID User de l'adresse correspont à l'ID de l'utilisateur
         if (!$address or $address->getUser() != $this->getUser()) {
             $this->redirectToRoute('app_account_addresses_list');
@@ -46,7 +47,7 @@ final class AddressController extends AbstractController
      * Accepts the ID of an address in the URL or accepts a route without an ID parameter in the URL.
      */
     #[Route('/profil/adresse/{id}', name: 'app_account_address_form', defaults: ['id' => null])]
-    public function adresses(?int $id, Request $request, EntityManagerInterface $entityManagerInterface, AddressRepository $addressRepository): Response
+    public function adresses(?int $id, Request $request, Cart $cart, EntityManagerInterface $entityManagerInterface, AddressRepository $addressRepository): Response
     {
         if ($id) {
             // Récupérer pour modifier une adresse déjà enregistrée.
@@ -68,7 +69,11 @@ final class AddressController extends AbstractController
             $entityManagerInterface->persist($address);
             $entityManagerInterface->flush();
 
-            $this->addFlash('success', 'Votre adresse à bien été sauvegardée');
+            if ($cart->allCountQuantityProduct() > 0) {
+                $this->addFlash('info', 'Votre adresse a bien été enregistrée');
+                return $this->redirectToRoute('app_order');
+            }
+            $this->addFlash('success', 'Votre adresse a bien été sauvegardée');
             return $this->redirectToRoute('app_account_addresses_list');
         }
 

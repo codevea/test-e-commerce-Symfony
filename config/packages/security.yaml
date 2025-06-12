@@ -44,6 +44,7 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN, requires_channel: https }
         - { path: ^/profil, roles: ROLE_USER, requires_channel: https }
+        - { path: ^/commande, roles: ROLE_USER, requires_channel: https }
         - { path: '^/', roles: PUBLIC_ACCESS, requires_channel: https }
 when@test:
     security:
