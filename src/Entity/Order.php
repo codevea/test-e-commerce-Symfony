@@ -38,9 +38,41 @@ class Order
     #[ORM\OneToMany(targetEntity: OrderDetail::class, mappedBy: 'myOrder', cascade: ['persist'])] //, orphanRemoval: true
     private Collection $orderDetails;
 
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
+    }
+
+    
+    public function getTotalTtc()
+    {
+        $totalTtc = 0;
+        $products = $this->getOrderDetails();
+        
+        foreach ($products as $product) {
+            $coef = 1 + ($product->getProductTva() /100);  
+            $totalTtc += ($product->getProductPrice() * $coef) * $product->getProductQuantity();
+        }
+        
+        return $totalTtc + $this->getCarrierPrice();
+    }
+
+    
+    public function getTotalTva()
+    {
+        $totalTva = 0;
+        $products = $this->getOrderDetails();
+     
+        foreach ($products as $product) {
+            $coef = $product->getProductTva() /100;  
+            $totalTva += ($product->getProductPrice() * $coef) * $product->getProductQuantity();
+        }
+
+        return $totalTva;
     }
 
     public function getId(): ?int
@@ -134,6 +166,18 @@ class Order
                 $orderDetail->setMyOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

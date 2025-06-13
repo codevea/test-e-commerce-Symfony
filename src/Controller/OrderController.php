@@ -33,7 +33,7 @@ final class OrderController extends AbstractController
 
         $form = $this->createForm(OrderForm::class, null, [
             'addresses' => $addresses,
-            // Méthode generateUrl(): 
+            // Méthode generateUrl(): Indique la redirection si le formulaire est soumis.
             // Redirection vers la route récapitulatif de la commande (submit)
             'action' => $this->generateUrl('app_order_summary')
         ]);
@@ -74,6 +74,7 @@ final class OrderController extends AbstractController
             $address .= $objAddress->getPhone();
 
             $order = new Order();
+            $order->setUser($this->getUser());
             $order->setCreatedAt(new \DateTime());
             $order->setState(1);
             $order->setCarrierName($form->get('carrier')->getData()->getName());

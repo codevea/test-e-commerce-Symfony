@@ -53,6 +53,7 @@ git push -u origin main
 - Adding addresses to the user account plus refactoring.
 - Addition of carrier class, order, and order detail.
 - Initial setup of the purchase funnel
+- order
 ...
 
 
