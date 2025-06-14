@@ -12,9 +12,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminAction;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 
 class OrderCrudController extends AbstractCrudController
 {
@@ -23,24 +24,38 @@ class OrderCrudController extends AbstractCrudController
         return Order::class;
     }
 
-    public function configureCrud(Crud $crud): Crud
-    {
-        return $crud
-            ->setEntityLabelInSingular('commande')
-            ->setEntityLabelInPlural('commandes')
-        ;
-    }
+    // public function configureCrud(Crud $crud): Crud
+    // {
+    //     return $crud
+    //         ->setEntityLabelInSingular('commande')
+    //         ->setEntityLabelInPlural('commandes')
+    //     ;
+    // }
 
     public function configureActions(Actions $actions): Actions
     {
+        // Création d'une vue détaillée de la commande personnalisée.
+        $show = Action::new('Consulter')->linkToCrudAction('show');
+
         return $actions
+            ->add(Crud::PAGE_INDEX, $show)
             ->remove(Crud::PAGE_INDEX, Action::NEW)
             ->remove(Crud::PAGE_INDEX, Action::DELETE)
             ->remove(Crud::PAGE_INDEX, Action::EDIT)
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)
         ;
     }
 
+    // Récupère la commande en cours et retourne la vue personnalisée affichant le détail de la commande.
+    // https://symfony.com/bundles/EasyAdminBundle/current/actions.html#generating-dynamic-action-labels
+    #[AdminAction(routePath: '/consulter', routeName: 'view_show', methods: ['GET', 'POST'])]
+    public function show(AdminContext $context)
+    {
+        $order = $context->getEntity()->getInstance();;
+      
+         return $this->render('admin/order.html.twig', [
+            'order' => $order,
+        ]);
+    }
 
     public function configureFields(string $pageName): iterable
     {

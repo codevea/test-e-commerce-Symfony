@@ -1,0 +1,60 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block main %}
+	<h2>Commande  n°
+		{{order.id}}</h2>
+
+	Date :
+	{{order.createdAt|format_date('short') }} | 
+
+	{% if order.state  == 1 %}
+		<span class="badge badge-info">
+			En attente de paiement
+		</span>
+	{% endif %}
+
+	{% if order.state  == 2 %}
+		<span class="badge badge-danger">
+			Payée
+		</span>
+	{% endif %}
+
+	{% if order.state  == 3 %}
+		<span class="badge badge-success">
+			Expediée
+		</span>
+	{% endif %}
+	<br>
+<br>
+
+	<h3>N° de client : 
+		{{order.user.id}}
+	</h3>
+
+	{{order.delivery|raw}}
+
+	<h3 class="my-3">Produit(s)
+	</h3>
+	<div class="row my-3">
+		{% for product in order.orderDetails %}
+			<div class="col-md-3">
+				<img src="/uploads/{{product.productIllustration}}" class="img-fluid img-thumbnail" alt="produit"><br>
+				Produit code n°{{product.id}} <br>
+				<strong>{{product.productName}}</strong> <br>
+				Nombre de produit : <span class="badge badge-secondary">X<strong>{{product.productQuantity}}</strong></span>  <br>
+				TVA : {{product.productTva}}% <br>
+				Montant total HT : {{((product.productPrice/100) * product.productQuantity )| number_format(2, ',', '')  }}
+				€<br>
+				Montant total TTC :	{% set coef = 1 + (product.productTva / 100) %} {{ (((product.productPrice / 100) * coef) * product.productQuantity)|format_currency('EUR') }}
+			</div>
+		{% endfor %}
+	</div>
+<hr>
+
+
+Montant total de la commande H.T : {{ ((order.getTotalTtc/100) - (order.getTotalTva/100))|format_currency('EUR') }}<br>
+Total de la TVA collectée sur la commande : {{ (order.getTotalTva/100)|format_currency('EUR') }}<br>
+Montant total de la commande  T.T.C : {{ ((order.getTotalTtc/100) - (order.carrierPrice/100))|format_currency('EUR') }}<br>
+Frais de transport: <span class="badge badge-secondary">{{(order.carrierPrice/100)|format_currency('EUR') }} X<strong>1</strong> - {{order.carrierName}}</span> <br>
+Montant total payer: {{ (order.getTotalTtc/100)|format_currency('EUR') }}
+{% endblock %}
