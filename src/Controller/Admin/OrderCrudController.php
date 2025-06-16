@@ -24,13 +24,13 @@ class OrderCrudController extends AbstractCrudController
         return Order::class;
     }
 
-    // public function configureCrud(Crud $crud): Crud
-    // {
-    //     return $crud
-    //         ->setEntityLabelInSingular('commande')
-    //         ->setEntityLabelInPlural('commandes')
-    //     ;
-    // }
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('commande')
+            ->setEntityLabelInPlural('commandes')
+        ;
+    }
 
     public function configureActions(Actions $actions): Actions
     {
@@ -65,12 +65,12 @@ class OrderCrudController extends AbstractCrudController
             yield DateField::new('createdAt', 'Date'),
             yield ChoiceField::new('state', 'Statut')->autocomplete()->setChoices([
                 'En attente de paiement' => 1,
-                'payée' => 2,
-                'Expédiée' => 3,
+                'Commande payée' => 2,
+                'Commande expédiée' => 3,
             ])->renderAsBadges([
-                1 => 'primary',
-                2 => 'danger',
-                3 => 'success',
+                1 => 'warning',
+                2 => 'success',
+                3 => 'primary',
             ]),
             yield TextField::new('carrierName', 'Transporteur'),
             yield MoneyField::new('carrierPrice', 'Frais transport')->setCurrency('EUR'),

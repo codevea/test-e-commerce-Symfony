@@ -38,7 +38,8 @@ class Product
     #[ORM\Column]
     private ?int $stock = null;
 
-    public function getPriceWT(): float
+    // calcul du prix HT
+    public function getPriceWT()
     {
         return round(($this->price / 100) * (1 + $this->tva / 100), 2);
     }

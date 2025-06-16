@@ -32,6 +32,12 @@ class OrderDetail
     #[ORM\Column]
     private ?float $productTva = null;
 
+    // Calcul du prix HT
+    public function getProductPriceWT()
+    {
+        return round(($this->productPrice / 100) * (1 + $this->productTva / 100), 2);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

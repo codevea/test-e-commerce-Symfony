@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Mes dérniere commandes
+{% endblock %}
+
+{% block body %}
+
+	{% if orders|length == 0 %}
+		<div class="alert alert-secondary" role="alert">{{product.state}}</div>
+	{% else %}
+
+		{% for order in orders %}
+			<div class="row my-1">
+				<div class="col-sm-3">
+					<strong>N° de commande :</strong>
+					<br><br>{{order.id}}
+				</div>
+				<div class="col-sm-3">
+					<strong>Date :</strong><br><br>
+					{{order.createdAt|date('d/m/Y')}}
+				</div>
+				<div class="col-sm-2">
+					<strong>Total T.T.C :</strong><br><br>
+					{{(order.getTotalTtc/100)| number_format(2, ',', '') }}
+				</div>
+				<div class="col-sm-2">
+					<a href="#">Voir ma commande</a>
+				</div>
+				<div class="col-sm-2">
+					<strong>
+						Statut
+					</strong><br><br>
+					{% if order.state  == 2 %}
+						<span class="badge text-bg-success p-2">
+							Commande payée
+						</span>
+					{% endif %}
+
+					{% if order.state  == 3 %}
+						<span class="badge text-bg-info  p-2 my-2">
+							Commande expediée
+						</span>
+					{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}

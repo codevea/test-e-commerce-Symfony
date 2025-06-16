@@ -40,7 +40,7 @@
       Frais de transport : {{(choices.carrier.price/100) | number_format(2, ',', '')  }} €<br><br>
 
 			Montant total TTC  : {{(allPriceTtc + (choices.carrier.price/100)) | number_format(2, ',', '') }} €<br>
-      <a href="#" class="btn btn-primary w-100 my-3">Payer</a>
+      <a href="{{path('app_payment', {id: order.id})}}" class="btn btn-primary w-100 my-4">Payer</a>
 		</div>
 	</div>
 {% endblock %}
