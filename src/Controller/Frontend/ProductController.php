@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Frontend;
 
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class ProductController extends AbstractController
 {
-    #[Route('/produit-{slug}', name: 'app_product')]
+    #[Route('/produit-{slug}', name: 'app_product', schemes: ['https'])]
     public function product(ProductRepository $productRepository, $slug): Response
     {
         $product = $productRepository->findOneBySlug(['slug' => $slug]);
@@ -18,7 +18,7 @@ final class ProductController extends AbstractController
              return $this->redirectToRoute('app_home');
         };
 
-        return $this->render('product/product.html.twig', [
+        return $this->render('frontend/product.html.twig', [
             'product' => $product
         ]);
     }

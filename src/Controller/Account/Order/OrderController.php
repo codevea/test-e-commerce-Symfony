@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Account\Order;
 
 use App\classe\Cart;
 use App\Entity\Order;
@@ -50,7 +50,7 @@ final class OrderController extends AbstractController
      *
      * @return Response
      */
-    #[Route('/recapitulatif-commande', name: 'app_order_summary')]
+    #[Route('/commande/recapitulatif-commande', name: 'app_order_summary', schemes: ['https'])]
     public function summary(Request $request, EntityManagerInterface $entityManagerInterface, Cart $cart): Response
     {
         $products = $cart->getCart();

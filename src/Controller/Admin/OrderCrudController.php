@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminAction;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -73,9 +74,9 @@ class OrderCrudController extends AbstractCrudController
                 3 => 'primary',
             ]),
             yield TextField::new('carrierName', 'Transporteur'),
-            yield MoneyField::new('carrierPrice', 'Frais transport')->setCurrency('EUR'),
-            yield MoneyField::new('getTotalTva', 'TVA')->setCurrency('EUR'),
-            yield MoneyField::new('getTotalTtc', 'Total TTC')->setCurrency('EUR'),
+            yield MoneyField::new('carrierPrice', 'Transport T.T.C')->setCurrency('EUR'),
+            yield NumberField::new('getTotalProductOrderTva', 'TVA')->setNumDecimals(2),
+            yield NumberField::new('getTotalProductOrderQuantityTtc', 'Produits T.T.C')->setNumDecimals(2),
         ];
     }
 }

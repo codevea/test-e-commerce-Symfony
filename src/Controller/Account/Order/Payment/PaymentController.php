@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Account\Order\Payment;
 
 use Stripe\Stripe;
+use App\classe\Cart;
 use Stripe\Checkout\Session;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class PaymentController extends AbstractController
 {
-    #[Route('commande/paiement-{id}', name: 'app_payment')]
+    #[Route('/commande/paiement-{id}', name: 'app_payment', schemes: ['https'])]
     public function index($id, OrderRepository $orderRepository, EntityManagerInterface $entityManagerInterface): Response
     {
         Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
@@ -36,7 +37,7 @@ final class PaymentController extends AbstractController
 
                 'price_data' => [
                     'currency' => 'EUR',
-                    'unit_amount' => number_format($product->getProductPriceWT() * 100, 0, '', ''),
+                    'unit_amount' => $product->getProductOrderDetailTtc(),
                     'product_data' => [
                         'name' => $product->getProductName(),
                         'images' => [
@@ -74,7 +75,7 @@ final class PaymentController extends AbstractController
             'mode' => 'payment',
 
             'success_url' => $_ENV['DOMAIN'] . '/commande/valide/{CHECKOUT_SESSION_ID}',
-            'cancel_url' => $_ENV['DOMAIN'] . '/mon-panier-retour',
+            'cancel_url' => $_ENV['DOMAIN'] . '/mon-panier/retour',
         ]);
 
         $order->setStripeSessionId($checkout_session->id);
@@ -84,8 +85,8 @@ final class PaymentController extends AbstractController
     }
 
 
-    #[Route('commande/valide/{stripe_session_id}', name: 'app_payment_success')]
-    public function success($stripe_session_id, OrderRepository $orderRepository,  EntityManagerInterface $entityManagerInterface)
+    #[Route('/commande/valide/{stripe_session_id}', name: 'app_payment_success', schemes: ['https'])]
+    public function success($stripe_session_id, OrderRepository $orderRepository,  EntityManagerInterface $entityManagerInterface, Cart $cart)
     {
         // Vérifie et recupére l'utilisateur qui à passer la commande
         $order = $orderRepository->findOneBy([
@@ -100,10 +101,11 @@ final class PaymentController extends AbstractController
 
         if ($order->getState() == 1) {
             $order->setState(2);
+            $cart->removeCart();// Vide la panier
             $entityManagerInterface->flush();
         }
 
-        return $this->render('order/success.html.twig', [
+        return $this->render('account/order/success.html.twig', [
             'order' => $order
         ]);
     }

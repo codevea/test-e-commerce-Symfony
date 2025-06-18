@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Cart;
 
 use App\classe\Cart;
-use App\Repository\OrderDetailRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class CartController extends AbstractController
 {
-    #[Route('/mon-panier-{motif}', name: 'app_cart', defaults: ['motif' => null])]
+    #[Route('/mon-panier/{motif}', name: 'app_cart', defaults: ['motif' => null], schemes: ['https'])]
     public function cart(Cart $cart, $motif): Response
     {
         if ($motif) {
@@ -26,27 +25,18 @@ final class CartController extends AbstractController
         ]);
     }
 
-    #[Route('/cart/add-{id}', name: 'app_cart_add')]
-    public function add($id, Cart $cart, ProductRepository $productRepository, Request $request, OrderDetailRepository $orderDetailRepository): Response
+    #[Route('/mon-panier/ajoute-produit/{id}', name: 'app_cart_add', schemes: ['https'])]
+    public function add($id, Cart $cart, ProductRepository $productRepository, Request $request): Response
     {
         $product = $productRepository->findOneById($id);
-        // $orderDetail = $orderDetailRepository->findOneByMyOrder('myOrder');
         $cart->addProductCart($product);
 
-        //     if($product->getStock() > 0) {
-        //          $product = $product->setStock($product->getStock()) - $orderDetail->getProductQuantity();
-        //     } else {
-        //          $this->addFlash('info', 'Le produit n\'est plus disponible');
-        //         return $this->redirect($request->headers->get('referer'));
-        //     }
-        //      $cart->addProductCart($product);
 
         $this->addFlash('success', 'Le produit à été ajouter à votre panier');
-        // Récupère l'URL de la dernière page visitée.
-        return $this->redirect($request->headers->get('referer'));
+        return $this->redirect($request->headers->get('referer')); // Récupère l'URL de la dernière page visitée.
     }
 
-    #[Route('cart/remove', name: 'app_cart_remove')]
+    #[Route('/mon-panier/remove', name: 'app_cart_remove', schemes: ['https'])]
     public function remove(Cart $cart): Response
     {
         $cart->removeCart();
@@ -54,7 +44,7 @@ final class CartController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-    #[Route('cart/decrease-{id}', name: 'app_cart_decrease')]
+    #[Route('/mon-panier/decrease-{id}', name: 'app_cart_decrease', schemes: ['https'])]
     public function decrease($id, Cart $cart)
     {
         $cart->decreaseNumberProductCart($id);

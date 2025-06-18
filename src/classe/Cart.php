@@ -21,7 +21,7 @@ class Cart
 
   /**
    * Fonction permettant d'ajouter un produit au panier.
-   * "Function allowing to add a product to the cart
+   * Function allowing to add a product to the cart
    *
    * @param [type] $product
    * @return void
@@ -47,7 +47,7 @@ class Cart
 
   /**
    * Décremente le nombre de produit dans le panier
-   * "Decreases the number of products in the cart.
+   * Decreases the number of products in the cart.
    *
    * @param [type] $id
    * @return void
@@ -97,7 +97,7 @@ class Cart
     }
 
     foreach ($cart as $product) {
-      $totalPriceTtc = $totalPriceTtc + ($product['object']->getPriceWT() * $product['quantity']);
+      $totalPriceTtc = $totalPriceTtc + ($product['object']->getProductTtc() * $product['quantity']);
     };
 
     return $totalPriceTtc;

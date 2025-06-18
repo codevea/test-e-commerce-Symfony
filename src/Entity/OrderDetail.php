@@ -27,15 +27,29 @@ class OrderDetail
     private ?int $productQuantity = null;
 
     #[ORM\Column]
-    private ?float $productPrice = null;
+    private ?int $productPrice = null;
 
     #[ORM\Column]
-    private ?float $productTva = null;
+    private ?int $productTva = null;
 
-    // Calcul du prix HT
-    public function getProductPriceWT()
+    // Calcul du prix du produit HT
+    public function getProductOrderDetailPriceHt()
+    { 
+        return round(($this->getProductPrice()  / 100) - ( $this->getProductTva()  / 100));
+    }
+
+    // Calcul T.T.C du produit * par la quantity
+    public function getTotalProductOrderDetailTtcQuantity()
     {
-        return round(($this->productPrice / 100) * (1 + $this->productTva / 100), 2);
+        $coef = 1 + ($this->getProductTva() / 100);
+        return  (($this->getProductPrice()/ 100) * $coef) * $this->getProductQuantity();
+    }
+
+    // Calcul d'un produit T.T.C
+    public function getProductOrderDetailTtc()
+    {
+        $coef = 1 + ($this->getProductTva() / 100);
+        return  ($this->getProductPrice() * $coef);
     }
 
     public function getId(): ?int
@@ -91,24 +105,24 @@ class OrderDetail
         return $this;
     }
 
-    public function getProductPrice(): ?float
+    public function getProductPrice(): ?int
     {
         return $this->productPrice;
     }
 
-    public function setProductPrice(float $productPrice): static
+    public function setProductPrice(int $productPrice): static
     {
         $this->productPrice = $productPrice;
 
         return $this;
     }
 
-    public function getProductTva(): ?float
+    public function getProductTva(): ?int
     {
         return $this->productTva;
     }
 
-    public function setProductTva(float $productTva): static
+    public function setProductTva(int $productTva): static
     {
         $this->productTva = $productTva;
 

@@ -1,11 +1,56 @@
-<h1>Hi! Please confirm your email!</h1>
+<div style="background-color: #FFE5B4; font-family: Arial, sans-serif; text-align: center; padding: 20px; margin: 0;">
+    <div style="background-color: #ffe0e7; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); max-width: 500px; margin: auto;">
+        <h1 style="color: #4f9c6f;">Bonjour ! Veuillez confirmer votre e-mail !</h1>
+        <p style="color: #333;">Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :</p>
+        <p>
+            <a href="{{ signedUrl|raw }}" style="background-color: #e6da9a; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 30px;">Confirmer mon e-mail</a> <br><br>
+            <span style="color: #333;">Ce lien expirera dans
+            {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</span>
+        </p>
+        <p style="color: #333;">Merci !</p>
+    </div>
+</div>
 
-<p>
-    Please confirm your email address by clicking the following link: <br><br>
-    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
-</p>
-
-<p>
-    Cheers!
-</p>
+{# <style>
+	body {
+		background-color: #FFE5B4; /* Pêche pastel */
+		font-family: Arial, sans-serif;
+		text-align: center;
+		padding: 20px;
+	}
+	.container {
+		background-color: #ffe0e7; /* Rose pastel */
+		padding: 20px;
+		border-radius: 10px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		max-width: 500px;
+		margin: auto;
+	}
+	h1 {
+		color: #4f9c6f; 
+	}
+	a {
+		background-color: #e6da9a; /* Jaune pastel */
+		color: white;
+		padding: 10px 20px;
+		text-decoration: none;
+		border-radius: 5px;
+		display: inline-block;
+		margin: 30px;
+	}
+	p {
+		color: #333;
+	}
+</style>
+<div class="body">
+	<div class="container">
+		<h1>Bonjour ! Veuillez confirmer votre e-mail !</h1>
+		<p>Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :</p>
+		<p>
+			<a href="{{ signedUrl|raw }}">Confirmer mon e-mail</a> <br><br>
+			Ce lien expirera dans
+			{{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }} .
+		</p>
+		<p>Merci !</p>
+	</div>
+</div> #}

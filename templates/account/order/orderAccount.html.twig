@@ -9,7 +9,7 @@
 	{% if orders|length == 0 %}
 		<div class="alert alert-secondary" role="alert">{{product.state}}</div>
 	{% else %}
-
+<h2 class="my-5">Liste de mes commandes</h2>
 		{% for order in orders %}
 			<div class="row my-1">
 				<div class="col-sm-3">
@@ -22,10 +22,10 @@
 				</div>
 				<div class="col-sm-2">
 					<strong>Total T.T.C :</strong><br><br>
-					{{(order.getTotalTtc/100)| number_format(2, ',', '') }}
+					{{order.getProductOrderCarrierQuantityTtc|format_currency('EUR')  }}
 				</div>
 				<div class="col-sm-2">
-					<a href="#">Voir ma commande</a>
+					<a href="{{path('app_account_order_detail', {'id': order.id })}}">Voir ma commande</a>
 				</div>
 				<div class="col-sm-2">
 					<strong>

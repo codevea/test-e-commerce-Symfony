@@ -1,8 +1,6 @@
-# Symfony 7.3.x E-commerce
+# - La Boutique Test avec Symfony 7.3.x - Bootstrap v5.3 
 
-- Bootstrap v5.3 
-
-- Images unsplash
+- images unsplash.com
 
 - https://gitmoji.dev/ 
 
@@ -54,6 +52,7 @@ git push -u origin main
 - Addition of carrier class, order, and order detail.
 - Initial setup of the purchase funnel
 - order
+- stripe 
 ...
 
 

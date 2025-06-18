@@ -19,7 +19,7 @@
             <small>Quantité commandée: x{{product.quantity}}</small> 
 					</div>
 					<div class="col-md-3">
-						{{  (product.object.priceWT * product.quantity)|format_currency('EUR')  }}
+						{{  (product.object.getProductTtc * product.quantity)|format_currency('EUR')  }}
 					</div>
 				</div>
 			{% endfor %}

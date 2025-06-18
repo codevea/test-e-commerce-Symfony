@@ -11,6 +11,6 @@ final class HomeController extends AbstractController
     #[Route('/profil/mon-compte', name: 'app_account')]
     public function index(): Response
     {
-        return $this->render('account/home-account.html.twig');
+        return $this->render('account/homeAccount.html.twig');
     }
 }

@@ -21,7 +21,7 @@ class Product
     private ?string $slug = null;
 
     #[ORM\Column]
-    private ?float $price = null;
+    private ?int $price = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
@@ -33,16 +33,24 @@ class Product
     private ?string $illustration = null;
 
     #[ORM\Column]
-    private ?float $tva = null;
+    private ?int $tva = null;
 
     #[ORM\Column]
     private ?int $stock = null;
 
-    // calcul du prix HT
-    public function getPriceWT()
+    // calcul du prix du produit HT
+    public function getProductHt()
     {
-        return round(($this->price / 100) * (1 + $this->tva / 100), 2);
+       return round(($this->getPrice()  / 100) - ($this->getTva() / 100));
     }
+
+    // Calcul du produit T.T.C
+    public function getProductTtc()
+    {
+    $coef = 1 + ($this->getTva() / 100);
+       return (($this->getPrice()  / 100) * $coef);
+    }
+
 
     public function getId(): ?int
     {
@@ -73,12 +81,12 @@ class Product
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): ?int
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): static
+    public function setPrice(int $price): static
     {
         $this->price = $price;
 
@@ -121,12 +129,12 @@ class Product
         return $this;
     }
 
-    public function getTva(): ?float
+    public function getTva(): ?int
     {
         return $this->tva;
     }
 
-    public function setTva(float $tva): static
+    public function setTva(int $tva): static
     {
         $this->tva = $tva;
 

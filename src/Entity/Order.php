@@ -27,7 +27,7 @@ class Order
     private ?string $carrierName = null;
 
     #[ORM\Column]
-    private ?float $carrierPrice = null;
+    private ?int $carrierPrice = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $delivery = null;
@@ -50,33 +50,60 @@ class Order
         $this->orderDetails = new ArrayCollection();
     }
 
-    
-    public function getTotalTtc()
+    // Calcul T.T.C des produits * par la quantity + prix du transporteur
+    public function getProductOrderCarrierQuantityTtc()
     {
         $totalTtc = 0;
         $products = $this->getOrderDetails();
-        
+
         foreach ($products as $product) {
-            $coef = 1 + ($product->getProductTva() /100);  
-            $totalTtc += ($product->getProductPrice() * $coef) * $product->getProductQuantity();
+            $coef = 1 + ($product->getProductTva() / 100);
+            $totalTtc += (($product->getProductPrice() / 100) * $coef) * $product->getProductQuantity();
         }
-        
-        return $totalTtc + $this->getCarrierPrice();
+        return $totalTtc + ($this->getCarrierPrice()/ 100);
     }
 
-    
-    public function getTotalTva()
+    // Calcul des produits T.T.C 
+    public function getTotalProductOrderQuantityTtc()
+    {
+        $totalTtc = 0;
+        $products = $this->getOrderDetails();
+
+        foreach ($products as $product) {
+            $coef = 1 + ($product->getProductTva() / 100);
+            $totalTtc += (($product->getProductPrice() / 100) * $coef);
+        }
+
+        return $totalTtc;
+    }
+
+    // calcul du prix du produit HT
+    public function getProductOrderHt()
+    {
+        $totalHt = 0;
+        $products = $this->getOrderDetails();
+
+        foreach ($products as $product) {
+            $totalHt = round(($product->getProductPrice() / 100) - ($product->getProductTva()  / 100));
+        }
+
+        return $totalHt;
+    }
+
+
+    // calcul de la TVA des produits
+    public function getTotalProductOrderTva()
     {
         $totalTva = 0;
         $products = $this->getOrderDetails();
-     
-        foreach ($products as $product) {
-            $coef = $product->getProductTva() /100;  
-            $totalTva += ($product->getProductPrice() * $coef) * $product->getProductQuantity();
-        }
 
+        foreach ($products as $product) {
+            $coef = $product->getProductTva() / 100;
+            $totalTva += (($product->getProductPrice()/ 100) * $coef) * $product->getProductQuantity();
+        }
         return $totalTva;
     }
+
 
     public function getId(): ?int
     {
@@ -119,12 +146,12 @@ class Order
         return $this;
     }
 
-    public function getCarrierPrice(): ?float
+    public function getCarrierPrice(): ?int
     {
         return $this->carrierPrice;
     }
 
-    public function setCarrierPrice(float $carrierPrice): static
+    public function setCarrierPrice(int $carrierPrice): static
     {
         $this->carrierPrice = $carrierPrice;
 

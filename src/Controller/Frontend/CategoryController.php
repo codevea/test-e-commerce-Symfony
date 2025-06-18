@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Frontend;
 
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class CategoryController extends AbstractController
 {
-    #[Route('/categorie-{slug}', name: 'app_category')]
+    #[Route('/categorie-{slug}', name: 'app_category', schemes: ['https'])]
     public function category(CategoryRepository $categoryRepository, $slug): Response
     {
         $category = $categoryRepository->findOneBySlug($slug);
@@ -18,7 +18,7 @@ final class CategoryController extends AbstractController
              return $this->redirectToRoute('app_home');
         };
 
-        return $this->render('category/category.html.twig', [
+        return $this->render('frontend/category.html.twig', [
             'category' => $category
         ]);
     }
