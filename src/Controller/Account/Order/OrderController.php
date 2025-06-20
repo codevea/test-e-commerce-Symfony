@@ -38,7 +38,7 @@ final class OrderController extends AbstractController
             'action' => $this->generateUrl('app_order_summary')
         ]);
 
-        return $this->render('order/commande.html.twig', [
+        return $this->render('account/order/commande.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -96,7 +96,7 @@ final class OrderController extends AbstractController
         }
 
 
-        return $this->render('order/summary.html.twig', [
+        return $this->render('account/order/summary.html.twig', [
             'choices' => $form->getData(),
             'cart' => $products,
             'order' => $order,

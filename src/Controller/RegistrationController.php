@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationForm;
 use App\Security\EmailVerifier;
-use App\Repository\UserRepository;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -24,11 +23,11 @@ class RegistrationController extends AbstractController
     #[Route('/inscription-utilisateur', name: 'app_register', schemes: ['https'])]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-
+       
         if ($this->getUser()) {
             return $this->redirectToRoute('app_home'); // Redirige vers la page d'accueil
         }
-
+ 
         $user = new User();
 
         $form = $this->createForm(RegistrationForm::class, $user);
@@ -52,7 +51,7 @@ class RegistrationController extends AbstractController
                     ->from(new Address('nathalie.vrecq@gmail.com', 'La Boutique'))
                     ->to((string) $user->getEmail())
                     ->subject('Veuillez confirmer votre adresse e-mail.')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->htmlTemplate('email/registrationConfirmationEmail.html.twig')
             );
             $this->addFlash('success', 'Une demande de confirmation de votre adresse e-mail vient de vous être envoyée.');
             return $this->redirectToRoute('app_login');

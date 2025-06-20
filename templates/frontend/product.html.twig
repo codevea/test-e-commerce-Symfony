@@ -16,7 +16,15 @@
 				{{product.name}}</span>
 			<h2 class="mb-3">{{product.name}}</h2>
 			<span class="d-block my-3">{{ product.getProductTtc|format_currency('EUR') }}</span>
-			<a href="{{path('app_cart_add', {id:product.id})}}" class="btn btn-primary mt-3 w-100">Ajouter au panier</a>
+			<a href="{{path('app_cart_add', {id:product.id})}}" class="btn btn-primary mt-3">Ajouter au panier</a>
+
+			{% if product in app.user.wishlist %}
+			<a href="{{path('app_wishlist_remove', {id:product.id})}}" class="btn  mt-3 btn-danger">{{ ux_icon('mdi:heart', {width:'24px', height:'24px'}) }}</a>
+			
+			{% else %} 	
+			
+			<a href="{{path('app_wishlist_add', {id:product.id})}}" class="btn  mt-3">{{ ux_icon('mdi:heart', {width:'24px', height:'24px'}) }}</a>
+			 {% endif %}
 		</div>
 	</div>
 {% endblock %}

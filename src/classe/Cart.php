@@ -33,14 +33,14 @@ class Cart
     $cart = $this->getCart();
 
     if (isset($cart[$product->getId()])) {
-        $cart[$product->getId()]['quantity'] += 1;
+      $cart[$product->getId()]['quantity'] += 1;
     } else {
       $cart[$product->getId()] = [
         'object' => $product,
         'quantity' => 1,
       ];
     }
- 
+
     // Panier actuel.
     $this->requestStack->getSession()->set('cart', $cart);
   }

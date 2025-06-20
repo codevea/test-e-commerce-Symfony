@@ -30,6 +30,7 @@ class ProductCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        // pour l'illustration
         $require = ($pageName === 'edit') ? false : true;
 
         return [

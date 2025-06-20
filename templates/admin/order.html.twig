@@ -35,7 +35,8 @@
 			N° de client :
 			{{order.user.id}}
 			<br>
-			<div class="fs-6">{{order.delivery|raw}}</div>
+			<div class="fs-6">{{order.delivery|raw}} <br>
+			<a href="{{path('app_pdf_user', {'id': order.id })}}" target="_blank">Facture</a></div>
 		</div>
 	</div>
 

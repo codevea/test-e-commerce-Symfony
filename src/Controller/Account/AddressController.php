@@ -60,6 +60,7 @@ final class AddressController extends AbstractController
             $address = new Address();
             // Récupérer l'ID de l'utilisateur et le définir dans l'entité Address
             $address->setUser($this->getUser());
+            
         }
 
         $form = $this->createForm(AddressForm::class, $address);

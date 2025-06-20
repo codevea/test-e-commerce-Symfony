@@ -40,7 +40,7 @@ final class CartController extends AbstractController
     public function remove(Cart $cart): Response
     {
         $cart->removeCart();
-        $this->addFlash('success', 'Le pranier à bien été supprimer');
+        $this->addFlash('success', 'Le panier à bien été supprimer');
         return $this->redirectToRoute('app_home');
     }
 

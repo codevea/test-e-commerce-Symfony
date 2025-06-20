@@ -1,0 +1,12 @@
+<div style="background-color: #FFE5B4; font-family: Arial, sans-serif; text-align: center; padding: 20px; margin: 0;">
+    <div style="background-color: #ffe0e7; padding: 30px; border-radius: 10px; max-width: 500px; margin: auto;">
+        <h1 style="color: #4f9c6f;">Bonjour ! Veuillez confirmer votre e-mail !</h1>
+        <p style="color: #333;">Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant :</p>
+        <p>
+            <a href="{{ signedUrl|raw }}" style="background-color: #e6da9a; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin: 30px;">Confirmer mon e-mail</a><br><br>
+            <span style="color: #333;">Ce lien expirera dans
+            {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.</span>
+        </p>
+        <p style="color: #333;">Merci !</p>
+    </div>
+</div>

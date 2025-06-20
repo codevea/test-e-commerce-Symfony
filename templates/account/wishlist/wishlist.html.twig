@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Liste des favoris
+{% endblock %}
+
+{% block body %}
+	<h1>Liste des favoris</h1>
+
+	{% if app.user.wishlist|length > 0 %}
+		<div class="row my-5">
+			{% for product in app.user.wishlist %}
+				<div class="col-md-1">
+					<img src="uploads/{{asset(product.illustration)}}" class="img-fluid" alt="{{product.name}}">
+				</div>
+				<div class="col-md-5">
+					<span>{{product.name}}</span>
+				</div>
+				<div class="col-md-2">
+					<span class="d-block my-3">{{ product.getProductTtc|format_currency('EUR') }}</span>
+				</div>
+				<div class="col-md-2">
+					<a href="{{path('app_cart_add', {id:product.id})}}" class="btn btn-primary mt-3 w-100">Ajouter au panier</a>
+				</div>
+				<div class="col-md-2 ">
+					<a href="{{path('app_wishlist_remove', {id:product.id})}}" class="btn  mt-3 w-100">{{ ux_icon('mdi:heart-off', {width:'24px', heigth:'24px'}) }}</a>
+				</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div>Vous n'avez pas encore ajouté de produits à votre liste de favoris.</div>
+	{% endif %}
+
+{% endblock %}
